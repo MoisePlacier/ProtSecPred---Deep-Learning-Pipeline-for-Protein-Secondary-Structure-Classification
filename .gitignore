@@ -1,0 +1,49 @@
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+casp8
+
+# PyTorch / TensorFlow checkpoints
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.tfrecord
+
+# Logs
+*.log
+
+# Data files
+*.csv
+*.tsv
+*.json
+*.jsonl
+*.gz
+*.zip
+*.hdf5
+*.fasta
+*.pdb
+*.dssp
+
+# Outputs
+outputs/
+results/
+models/
+predictions/
+
+# VSCode / IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Mac / Linux temp files
+.DS_Store
+*.swp
+*~
