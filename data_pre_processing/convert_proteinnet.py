@@ -1,5 +1,10 @@
 """
 Convert ProteinNet text files to JSON (valid JSON array).
+
+exemple d'utilisation (copier-coller ça dans le terminal) : 
+
+python convert_proteinnet.py casp8/training_30  training_30.json 
+
 """
 
 import sys
@@ -12,6 +17,7 @@ _aa_dict = {'A': '0', 'C': '1', 'D': '2', 'E': '3', 'F': '4', 'G': '5', 'H': '6'
             'K': '8', 'L': '9', 'M': '10', 'N': '11', 'P': '12', 'Q': '13', 'R': '14', 'S': '15',
             'T': '16', 'V': '17', 'W': '18', 'Y': '19'}
 _dssp_dict = {'L': '0', 'H': '1', 'B': '2', 'E': '3', 'G': '4', 'I': '5', 'T': '6', 'S': '7'}
+
 _mask_dict = {'-': '0', '+': '1'}
 
 def letter_to_num(string, dict_):
