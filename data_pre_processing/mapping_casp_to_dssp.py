@@ -5,6 +5,8 @@
     exemple d'utilisation (à copier coller dans le terminal) : 
     python mapping_casp_to_dssp("casp8/validation.json", "full_protein_dssp_annotations.json", "validation_dataset.json")
 """
+import sys
+import json
 
 aa_alphabet = list('ACDEFGHIKLMNPQRSTVWY')
 
