@@ -41,6 +41,11 @@ les feillets beta ne sont pas des structures locales (une même séquences peut 
 
 de ce fait : 35% des structures secondaires sont donc déterminées par des long ranges actions 
 
+"The accuracy of secondarystructure predictions is only 65–70%. This fact is usually interpreted to imply that the remaining variance of 30–35% is caused by non-local interactions"
+
+source : "Is protein folding hierarchic? I. Local structure and peptide folding, (Robert L. Baldwin and George D. Rose) "
+
+
 
 Certains acides aminés, comme la proline qui a un résidus aromatique cyclique, induisent des coudes dans la structure des protéines => cela casse l'hélice alpha. 
 
@@ -119,14 +124,37 @@ FAUJ880109 Number of hydrogen bond donors (Fauchere et al., 1988)
 
 
 ## Multiple sequence alignments
+
 source : publication [protein net](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2932-0)
 
 "Sequence databases for deriving MSAs were created by combining all protein sequences in UniParc [21] with metagenomic sequences from the Joint Genome Institute and filtering to include only sequences available prior to CASP start dates (Table 2). JackHMMER was then used to construct MSAs for every structure by searching the appropriate sequence database. Different MSAs were derived for the same structure if it occurred in multiple ProteinNets. JackHMMER was run with an e-value of 1e-10 (domain and full length) and five iterations. A fixed database size of 1e8 (option -Z) was used to ensure constant evolutionary distance when deriving MSAs (similar to using bit scores). Only perfectly redundant sequences (100% seq. id.) were removed from sequence databases to preserve fine- and coarse-grained sequence variation in resulting MSAs.
 
 In addition to raw MSAs, PSSMs were derived using Easel [24] in a weighted fashion so that similar sequences collectively contributed less to PSSM probabilities than diverse sequences. Henikoff position-based weights (option -p) were used for this purpose."
 
-## comparaison des méthodes 
+## comparaison des inputs biologiques
 
-PSSM = information évolutive positionnelle spécifique.
-BLOSUM = moyenne évolutive globale.
-Physico-chimie = propriétés locales instantanées.
+PSSM = information évolutive positionnelle spécifique. Elle représente pour chaque position $i$ et acide aminé $a$ une probabilité ou un score de substitution $P(a|i)$ dérivé d’un MSA, donc indépendamment des autres positions. Les colonnes d’une PSSM sont traitées comme statistiquement indépendantes.
+
+
+MSA = information évolutive complète (positionnelle et globale) spécifique : préservent les coévolutions et contraintes structurales à longue portée. => La coévolution, c’est-à-dire la corrélation entre mutations simultanées de deux positions. 
+
+
+BLOSUM = propriétés locales de moyenne évolutive globale, redondante. 
+
+
+Physico-chimie = propriétés locales instantanées, redondante.
+
+## comparaisons des modèles 
+
+
+Random Forest => est invariant à la permutation des features : Il ne multiplie jamais ou ne regroupe jamais plusieurs features voisines pour détecter une relation locale (comme le ferait un CNN ou une fenêtre glissante paramétrique)
+
+
+CNN => invariant (ou équivariant) à la translation grâce au filtrage local partagé : capture bien les relations locales. 
+
+Transformeur => invariant à la permutation des tokens (ordre des entrées) avant ajout des encodages de position.
+
+
+Transformeur + attention => modéliser les dépendances séquentielles, sans imposer de voisinage local comme le fait un CNN.
+
+
