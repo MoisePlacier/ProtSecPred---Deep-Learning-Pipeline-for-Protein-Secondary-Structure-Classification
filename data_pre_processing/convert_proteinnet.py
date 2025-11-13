@@ -3,7 +3,7 @@ Convert ProteinNet text files to JSON (valid JSON array).
 
 exemple d'utilisation (copier-coller ça dans le terminal) : 
 
-python convert_proteinnet.py casp8/training_30  training_30.json 
+python data_pre_processing/convert_proteinnet.py casp8/training_30  training_30.json 
 
 """
 
