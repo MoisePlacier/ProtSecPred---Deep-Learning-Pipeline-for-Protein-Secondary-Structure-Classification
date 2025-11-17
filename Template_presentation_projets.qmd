@@ -142,7 +142,7 @@ ProteinNet uses the [CASP (Critical Assessment of Structure Prediction)](https:/
 
 Our initial modeling strategy leverages the intrinsic physico-chemical properties of individual amino acids and their immediate sequence context to predict secondary structure. By employing a sliding window approach, we capture the local interactions that drive helix and coil formation. This framework provides a straightforward yet biologically informed baseline
 
-### Data Preprocessing for the Random Forest
+### Data Preprocessing for the[ Random Forest](Models/Random_Forest)
 
 To prepare the input data for our Random Forest model, each protein sequence is first segmented into overlapping windows of size 11, such that for a sequence of length $L$, $L$ windows are generated, each centered on a single residue. Within each window, individual amino acids are represented as vectors of physico-chemical descriptors derived from the [AAindex1 database](https://www.genome.jp/aaindex/). Residues that correspond to padding ('-') at sequence termini are assigned zero-filled vectors to maintain consistent dimensionality. The descriptors from all residues in a window are then concatenated to form a single flattened feature vector, which preserves local contextual information around each residue while producing a tabular format compatible with classical machine learning models. 
 
