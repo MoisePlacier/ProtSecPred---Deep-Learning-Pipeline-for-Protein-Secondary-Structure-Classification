@@ -3,9 +3,6 @@ import torch
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 
-### Pré-traitement et encodage (tensorisation) ###
-
-# --- 1. Définition des Constantes d'Encodage et de Mappage ---
 
 # 20 acides aminés standards + 1 pour le padding
 AA_ALPHABET = 'ACDEFGHIKLMNPQRSTVWY'
@@ -56,7 +53,6 @@ def one_hot_encode(sequence, char_to_int_map, dim, padding_char='<pad>', dtype=t
             
     return one_hot
 
-# --- 3. Définition du Jeu de Données PyTorch ---
 
 class ProteinDataset(Dataset):
     def __init__(self, data_file_path, max_len=None):
@@ -112,10 +108,9 @@ class ProteinDataset(Dataset):
 
         return X_padded, Y_padded, L # L est retourné pour le dé-padding après prédiction
 
-# --- 4. Exemple d'Utilisation ---
+
 
 if __name__ == '__main__':
-    # REMPLACER AVEC VOTRE FICHIER CONSOLIDÉ
     file_path = 'testing_dataset.json' 
 
     # Création du Dataset et du DataLoader
@@ -139,7 +134,6 @@ if __name__ == '__main__':
     print(f"Dimension Tenseur Y (Labels int): {Y_batch.shape}") 
     print(f"   => (Batch, L_max) - (Indices H/E/C ou <pad>=3)")
 
-    # Exemple de l'encodage du premier résidu du premier échantillon (devrait être OHE)
     first_aa_vector = X_batch[0, 0, :]
     print(f"\nExemple de vecteur OHE (premier AA): {first_aa_vector[:len(AA_ALPHABET)]}")
     print(f"Index de la classe d'output du premier AA: {Y_batch[0, 0]}")
