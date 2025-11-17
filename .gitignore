@@ -48,3 +48,10 @@ predictions/
 .DS_Store
 *.swp
 *~
+
+
+# Testing / validation folders to ignore
+testing/
+testing_dataset/
+validation/
+validation_dataset/
