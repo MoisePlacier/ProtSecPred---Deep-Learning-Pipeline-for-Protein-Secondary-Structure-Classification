@@ -52,8 +52,11 @@ Therefore, we focus on secondary-structure prediction because it simplifies both
 ## Dataset: ProteinNet
 
 This project uses **ProteinNet**, a curated dataset designed to standardize machine-learning benchmarks for protein structure prediction, mirroring the evaluation protocol of the CASP challenge [6]. It provides protein sequences, structures (secondary and tertiary), multiple sequence alignments (MSAs), position-specific scoring matrices (PSSMs), and standardized training / validation / test splits. ProteinNet builds on the biennial CASP assessments, which carry out blind predictions of recently solved but publicly unavailable protein structures, to provide test sets that push the frontiers of computational methodology.
+
 It is organized as a series of data sets, spanning CASP 7 through 12 (covering a ten-year period), to provide a range of data set sizes that enable assessment of new methods in relatively data poor and data rich regimes.
 We chose to focus our model development and evaluation specifically on the historical CASP 8 assessment data, which is included within the comprehensive ProteinNet dataset.
+
+The full CASP8 ProteinNet dataset is not included in the repository because its size exceeds GitHub’s storage limits (approximately 5 GB). To allow full reproducibility, the dataset can be accessed and downloaded from the following source : [DATASET](https://github.com/aqlaboratory/proteinnet)
 
 ### Characteristics of Protein Datasets
 
@@ -260,6 +263,8 @@ This architecture was chosen to balance biological interpretability and computat
 | **Weighted Avg** |  0.83  |  0.83  |  0.83  | 11656 |
 
 CNNs apply learnable filters that slide along the sequence, sharing weights across positions and exploiting translational invariance (or equivariance). This yields a stronger ability to learn local sequence motifs and conserved patterns than Random Forests. However, CNNs remain inherently local. Although the multi-scale kernels (3, 7, 11) widen the receptive fields significantly, PSSMs themselves carry position-specific but non-contextual information, so true long-range effects (interactions between residues far apart in the sequence) are still not represented explicitly.
+
+Additionally, PSSMs derived from multiple sequence alignments (MSAs) represent aggregated evolutionary information at each position, but they do not implicitly encode co-evolution between residues. That is, correlations between mutations of different residues—which often reflect spatial contacts in the 3D structure—are lost in the positional averaging of PSSMs.
 
 ### 3. Protein Secondary Structure Prediction with ProtBERT
 
