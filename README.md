@@ -55,7 +55,7 @@ This project uses **ProteinNet**, a curated dataset designed to standardize mach
 It is organized as a series of data sets, spanning CASP 7 through 12 (covering a ten-year period), to provide a range of data set sizes that enable assessment of new methods in relatively data poor and data rich regimes.
 We chose to focus our model development and evaluation specifically on the historical CASP 8 assessment data, which is included within the comprehensive ProteinNet dataset.
 
-#### Characteristics of Protein Datasets
+### Characteristics of Protein Datasets
 
 Protein datasets differ fundamentally from standard machine-learning datasets, and these differences deeply impact training, evaluation, and generalization.
 
@@ -67,7 +67,7 @@ Proteins are not independent samples. They arise from evolutionary processes and
 
 Homologous proteins can exceed 90% sequence identity, meaning they are nearly identical at the residue level. This level of redundancy has no equivalent in common ML domains such as vision, where similar classes remain pixel-distinct. Without proper control of redundancy, models trivially memorize homologous examples rather than learning the underlying biophysics of folding.
 
-#### Impact on Machine-Learning Training
+### Impact on Machine-Learning Training
 
 These dataset characteristics create several pitfalls that must be explicitly mitigated.
 
@@ -75,7 +75,7 @@ These dataset characteristics create several pitfalls that must be explicitly mi
 
 If training, validation, and test sets share proteins above 30–40% sequence identity, a model can achieve high accuracy simply by memorizing close homologs. This yields deceptively strong performance, especially on short-range structure, without genuine understanding of folding constraints. When homologous leakage occurs, a model does not generalize the folding process and will fail to predict structures for truly novel proteins, such as proteins from under-sampled species or newly sequenced metagenomic datasets. This undermines the biological utility of the predictor.
 
-#### Implemented Solutions
+### Implemented Solutions
 
 ProteinNet employs several mechanisms to avoid these pitfalls.
 
@@ -179,7 +179,7 @@ resulting in short, fragmented structures that do not reflect realistic motifs. 
 
 Finally, the Random Forest model itself has limitations: it treats features as independent and is **invariant to permutations**, so it cannot exploit sequential correlations or detect motifs across neighboring residues within the window as a CNN or transformer-based model could. Additionally, the input features—physico-chemical descriptors—represent only local properties and is a **redundant information**. Taken together, these factors naturally limit the model’s performance, making a plateau around 65–66% accuracy expected for purely local, feature-based methods.
 
-### Evolutionary information and convolutional models (PSSM + 1D CNN) 
+### 2. Evolutionary information and convolutional models (PSSM + 1D CNN) 
 
 This subsection introduces evolutionary descriptors, especially Position-Specific Scoring Matrices (PSSMs) derived from multiple sequence alignments, widely used in secondary-structure predictors.
 
@@ -233,7 +233,7 @@ Each amino acid is represented by a 41-dimensional feature vector. This vector i
 
 During training, input tensors are transposed to $(\text{Batch}, 41, L_{\text{max}})$, the format expected by PyTorch’s Conv1d layers.
 
-### 1D CNN Architecture
+#### 1D CNN Architecture
 
 The network consists of three consecutive 1D convolutional layers with multi-scale kernel sizes (3, 7, and 11) [19] corresponding to different lengths of local structural motifs, progressively increasing the number of filters from 128 to 256 and then 512. Dropout layers (rate 0.5) follow the first two convolutions to mitigate overfitting. The final classification layer is a position-wise 1D convolution with kernel size one, producing logits over the three secondary structure classes (H, E, C) for each residue. Padding is applied to maintain the original sequence length throughout all convolutional layers.
 
@@ -261,7 +261,7 @@ This architecture was chosen to balance biological interpretability and computat
 
 CNNs apply learnable filters that slide along the sequence, sharing weights across positions and exploiting translational invariance (or equivariance). This yields a stronger ability to learn local sequence motifs and conserved patterns than Random Forests. However, CNNs remain inherently local. Although the multi-scale kernels (3, 7, 11) widen the receptive fields significantly, PSSMs themselves carry position-specific but non-contextual information, so true long-range effects (interactions between residues far apart in the sequence) are still not represented explicitly.
 
-### Protein Secondary Structure Prediction with ProtBERT
+### 3. Protein Secondary Structure Prediction with ProtBERT
 
 This project leverages **ProtBERT**, a deep language model for protein sequences, to predict residue-level secondary structure (H/E/C). ProtBERT is inspired by BERT from natural language processing and is pretrained on over 100 million non-redundant protein sequences from UniRef90 using a dual-task self-supervised approach:
 
