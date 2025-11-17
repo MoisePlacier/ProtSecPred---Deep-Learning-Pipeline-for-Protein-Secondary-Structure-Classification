@@ -350,4 +350,18 @@ During dataset loading, each sequence keeps its original shape $(L, 1024)$ until
 
 
 
+## Results and discussion 
 
+| Metric            | Value  |
+| ----------------- | ------ |
+| Accuracy          | 0.8223 |
+| Balanced Accuracy | 0.8149 |
+| Macro F1          | 0.8156 |
+
+| Class            | Precision | Recall | F1-score | Support |
+| ---------------- | --------- | ------ | -------- | ------- |
+| 0                | 0.84      | 0.84   | 0.84     | 3416    |
+| 1                | 0.78      | 0.77   | 0.78     | 2417    |
+| 2                | 0.83      | 0.83   | 0.83     | 5823    |
+| **Macro Avg**    | 0.82      | 0.81   | 0.82     | 11656   |
+| **Weighted Avg** | 0.82      | 0.82   | 0.82     | 11656   |
