@@ -328,35 +328,35 @@ However, CNNs remain inherently local. Although receptive fields can be widened,
 
 
 
-## language model ProteinBERT  for Secondary Structure Prediction
+## Protein Secondary Structure Prediction with ProtBERT
 
+This project leverages **ProtBERT**, a deep language model for protein sequences, to predict residue-level secondary structure (H/E/C). ProtBERT is inspired by BERT from natural language processing and is pretrained on over 100 million non-redundant protein sequences from UniRef90 using a dual-task self-supervised approach:
 
-ProteinBERT is a deep language model specifically designed for protein sequences. Inspired by the Transformer/BERT architecture from natural language processing, it integrates both local (residue-level) and global (whole-sequence) representations, enabling efficient modeling of very long protein sequences. Despite its relatively modest size (~16 million parameters), ProteinBERT achieves state-of-the-art performance across multiple protein prediction benchmarks.
+- **Masked Language Modeling (MLM):** random amino acids are masked and reconstructed.  
+- **Gene Ontology (GO) annotation prediction:** the model predicts functional annotations from partial sequences.  
 
-The model is pretrained using a dual-task self-supervised scheme on ~106 million non-redundant protein sequences from UniRef90. The pretraining tasks include masked language modeling, where random amino acids are corrupted and must be reconstructed, and Gene Ontology (GO) annotation prediction, where the model predicts functional annotations from partial input. This joint pretraining allows ProteinBERT to learn representations that capture both sequence patterns and functional context.
+ProtBERT embeddings capture both **local sequence patterns** and **global functional context**, providing 1024-dimensional vectors per residue. These embeddings encode physicochemical, evolutionary, and functional information, offering a rich starting point for downstream tasks such as secondary structure prediction.
 
-ProteinBERT embeddings encode a rich mixture of residue-level physicochemical properties, evolutionary information, and functional context. Pretraining on large, diverse protein sets allows the model to generalize to sequences lacking close homologs, while the GO prediction task provides global functional signals that improve local predictions.
+### Embedding Generation Pipeline
 
-While PSSMs encode only the likelihood of observing each amino acid at a given position, independently of other positions, ProteinBERT captures richer information that integrates residue-level context, long-range dependencies, and functional signals learned across millions of proteins. Consequently, whereas PSSMs are limited to evolutionary conservation and local substitution patterns, ProteinBERT embeddings incorporate both local sequence motifs and global structural and functional cues.This combination of local and global context makes ProteinBERT particularly suitable for predicting residue-level secondary structures.
+1. Each protein sequence is tokenized at the residue level and passed through ProtBERT.  
+2. Each residue is mapped to a 1024-dimensional embedding.  
+3. Embeddings are saved as `.npy` files per protein, and corresponding secondary structure labels are stored as integer vectors.  
+4. During training, sequences are padded to form batches, and padding positions are masked during loss computation.
 
+### Transformer-based Classifier
+To adapt ProtBERT embeddings for secondary structure prediction, we use a **lightweight Transformer architecture**. The embeddings are first projected to a lower-dimensional space, then processed through the Transformer to capture relationships between residues, and finally passed through a linear classifier to produce per-residue predictions for H/E/C classes. This approach allows the model to combine ProtBERT’s rich contextual information with sequence-level dependencies.
 
-### The embedding-generation pipeline
-
-The embedding-generation pipeline follows a simple two-step procedure.
-
-In the first step, each protein sequence is processed independently through the pretrained ProtBERT model. The sequence is tokenized into single-residue tokens, encoded with the ProtBERT tokenizer, and passed through the encoder in inference mode. Each amino-acid sequence of length $L$ is transformed by ProtBERT into a matrix of shape $(L, 1024)$, where each residue is represented by a 1024-dimensional contextual embedding. These embeddings are saved individually as .npy arrays, one per protein, and the associated secondary-structure labels are stored as vectors of length $L$ containing integer class indices.
-
-During dataset loading, each sequence keeps its original shape $(L, 1024)$ until batching. When a batch is formed, the variable-length sequences are padded along the residue axis, producing a tensor of size $(\text{Batch}, L_{\text{max}}, 1024)$, where $L_{\text{max}}$ is the longest sequence in the batch. Labels undergo the same padding procedure and form a tensor of size $(\text{Batch}, L_{\text{max}})$, with a dedicated padding index (−100) used to mask non-valid positions during loss computation.
-
-
-
-## Results and discussion 
+## Results and Discussion
+The ProtBERT-based Transformer produces the following overall performance:
 
 | Metric            | Value  |
 | ----------------- | ------ |
 | Accuracy          | 0.8223 |
 | Balanced Accuracy | 0.8149 |
 | Macro F1          | 0.8156 |
+
+**Class-wise performance:**
 
 | Class            | Precision | Recall | F1-score | Support |
 | ---------------- | --------- | ------ | -------- | ------- |
@@ -366,4 +366,5 @@ During dataset loading, each sequence keeps its original shape $(L, 1024)$ until
 | **Macro Avg**    | 0.82      | 0.81   | 0.82     | 11656   |
 | **Weighted Avg** | 0.82      | 0.82   | 0.82     | 11656   |
 
-
+Classical PSSM-based predictors report similar metrics (Q3 accuracy ~82.5%, balanced accuracy ~83%, macro F1 ~83%).
+ProtBERT embeddings encode **residue-level and long-range sequence information**, including patterns learned across millions of proteins, which capture implicit evolutionary and structural signals.
