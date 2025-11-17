@@ -87,8 +87,6 @@ Dataset splits are not random but based on sequence-identity clustering. Tools s
 
 ProteinNet uses the CASP (Critical Assessment of Structure Prediction) [8] evaluation framework, where models are tested on protein structures that were not publicly available at training time. This ensures transparent, unbiased assessment of generalization. CASP remains the gold standard benchmark for structure prediction.
 
-***
-
 ## Biological Inputs and Modelling Strategy
 
 ### 1. Local Model: Physico-Chemical Features + Random Forest (Baseline)
@@ -308,25 +306,25 @@ ProtBERT embeddings encode **residue-level and long-range sequence information**
 
 ## References
 
-[1] Ismi, D. P., Pulungan, R., & Afiahayati. Deep learning for protein secondary structure prediction: Pre and post-AlphaFold. Computational and Structural Biotechnology Journal 20, 6271–6286 (2022).
-[2] Breda, A. et al. Protein structure, modelling and applications. Bioinformatics in tropical disease research: a practical and case-study approach. (eds. Gruber, A. et al.) 137–170 (National Center for Biotechnology Information (US), 2008).
-[3] Branden, C. I. & Tooze, J. Introduction to Protein Structure. (Garland Science, 2012).
-[4] Anfinsen, C. B. Principles that Govern the Folding of Protein Chains. Science 181, 223–230 (1973).
-[5] Zwanzig, R., Szabo, A. & Bagchi, B. Levinthal’s paradox. Proc. Natl. Acad. Sci. U.S.A. 89, 20–22 (1992).
-[6] AlQuraishi, M. ProteinNet: a standardized data set for machine learning of protein structure. BMC Bioinformatics 20, 311 (2019).
-[7] Finn, R. D. et al. HMMER web server: 2015 update. Nucleic Acids Res 43, W30–W38 (2015).
-[8] Kryshtafovych, A., Schwede, T., Topf, M., Fidelis, K. & Moult, J. Critical assessment of methods of protein structure prediction (CASP)—Round XIII. Proteins 87, 1011–1020 (2019).
-[9] Argos, P., Rao, J. K. M. & Hargrave, P. A. Structural Prediction of Membrane‐Bound Proteins. European Journal of Biochemistry 128, 565–575 (1982).
-[10] Bigelow, C. C. On the average hydrophobicity of proteins and the relation between it and protein structure. Journal of Theoretical Biology 16, 187–211 (1967).
-[11] Fauchère, J., Charton, M., Kier, L. B., Verloop, A. & Pliska, V. Amino acid side chain parameters for correlation studies in biology and pharmacology. International Journal of Peptide and Protein Research 32, 269–278 (1988).
-[12] Charton, M. & Charton, B. I. The structural dependence of amino acid hydrophobicity parameters. Journal of Theoretical Biology 99, 629–644 (1982).
-[13] Grantham, R. Amino Acid Difference Formula to Help Explain Protein Evolution. Science 185, 862–864 (1974).
-[14] Radzicka, A., Pedersen, L. & Wolfenden, R. Influences of solvent water on protein folding: free energies of solvation of cis and trans peptides are nearly identical. Biochemistry 27, 4538–4541 (1988).
-[15] Bhaskaran, R. & Ponnuswamy, P. K. Positional flexibilities of amino acid residues in globular proteins. International Journal of Peptide and Protein Research 32, 241–255 (1988).
-[16] Charton, M. & Charton, B. I. The dependence of the Chou-Fasman parameters on amino acid side chain structure. Journal of Theoretical Biology 102, 121–134 (1983).
-[17] Baldwin, R. L. & Rose, G. D. Is protein folding hierarchic? I. Local structure and peptide folding. Trends in Biochemical Sciences 24, 26–33 (1999).
-[18] Henikoff, S. & Henikoff, J. G. Position-based sequence weights. Journal of Molecular Biology 243, 574–578 (1994).
-[19] Lu, Y. Protein Secondary Structure Prediction Using Convolutional Bidirectional GRU. JMR 16, 11 (2024).
+1. Ismi, D. P., Pulungan, R., & Afiahayati. Deep learning for protein secondary structure prediction: Pre and post-AlphaFold. Computational and Structural Biotechnology Journal 20, 6271–6286 (2022).
+2. Breda, A. et al. Protein structure, modelling and applications. Bioinformatics in tropical disease research: a practical and case-study approach. (eds. Gruber, A. et al.) 137–170 (National Center for Biotechnology Information (US), 2008).
+3. Branden, C. I. & Tooze, J. Introduction to Protein Structure. (Garland Science, 2012).
+4. Anfinsen, C. B. Principles that Govern the Folding of Protein Chains. Science 181, 223–230 (1973).
+5. Zwanzig, R., Szabo, A. & Bagchi, B. Levinthal’s paradox. Proc. Natl. Acad. Sci. U.S.A. 89, 20–22 (1992).
+6. AlQuraishi, M. ProteinNet: a standardized data set for machine learning of protein structure. BMC Bioinformatics 20, 311 (2019).
+7. Finn, R. D. et al. HMMER web server: 2015 update. Nucleic Acids Res 43, W30–W38 (2015).
+8. Kryshtafovych, A., Schwede, T., Topf, M., Fidelis, K. & Moult, J. Critical assessment of methods of protein structure prediction (CASP)—Round XIII. Proteins 87, 1011–1020 (2019).
+9. Argos, P., Rao, J. K. M. & Hargrave, P. A. Structural Prediction of Membrane‐Bound Proteins. European Journal of Biochemistry 128, 565–575 (1982).
+10. Bigelow, C. C. On the average hydrophobicity of proteins and the relation between it and protein structure. Journal of Theoretical Biology 16, 187–211 (1967).
+11. Fauchère, J., Charton, M., Kier, L. B., Verloop, A. & Pliska, V. Amino acid side chain parameters for correlation studies in biology and pharmacology. International Journal of Peptide and Protein Research 32, 269–278 (1988).
+12. Charton, M. & Charton, B. I. The structural dependence of amino acid hydrophobicity parameters. Journal of Theoretical Biology 99, 629–644 (1982).
+13. Grantham, R. Amino Acid Difference Formula to Help Explain Protein Evolution. Science 185, 862–864 (1974).
+14. Radzicka, A., Pedersen, L. & Wolfenden, R. Influences of solvent water on protein folding: free energies of solvation of cis and trans peptides are nearly identical. Biochemistry 27, 4538–4541 (1988).
+15. Bhaskaran, R. & Ponnuswamy, P. K. Positional flexibilities of amino acid residues in globular proteins. International Journal of Peptide and Protein Research 32, 241–255 (1988).
+16. Charton, M. & Charton, B. I. The dependence of the Chou-Fasman parameters on amino acid side chain structure. Journal of Theoretical Biology 102, 121–134 (1983).
+17. Baldwin, R. L. & Rose, G. D. Is protein folding hierarchic? I. Local structure and peptide folding. Trends in Biochemical Sciences 24, 26–33 (1999).
+18. Henikoff, S. & Henikoff, J. G. Position-based sequence weights. Journal of Molecular Biology 243, 574–578 (1994).
+19. Lu, Y. Protein Secondary Structure Prediction Using Convolutional Bidirectional GRU. JMR 16, 11 (2024).
 
 
 

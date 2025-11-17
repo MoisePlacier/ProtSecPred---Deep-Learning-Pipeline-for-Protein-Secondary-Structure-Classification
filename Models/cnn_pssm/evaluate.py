@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report, f1_score, precision_recall_fscore_support, accuracy_score
 
-from encoding_2 import ProteinDataset, SS_TO_INT, INPUT_DIM
+from Models.cnn_pssm.encoding import ProteinDataset, SS_TO_INT, INPUT_DIM
 
-from model_2 import ProteinCNN
+from model import ProteinCNN
 
 SS_TO_INT = {'H': 0, 'E': 1, 'C': 2, '<pad>': 3}
 PAD_INDEX = SS_TO_INT['<pad>'] 
@@ -19,7 +19,7 @@ def evaluate_model(model, test_loader, model_path):
     """
     Charge le modèle entraîné et évalue sa précision Q3 sur le jeu de test.
     """
-    # 1. Chargement du meilleur modèle
+    # Chargement du meilleur modèle
     try:
         model.load_state_dict(torch.load(model_path))
         print(f"\nModèle chargé depuis: {model_path}")
@@ -102,7 +102,7 @@ def analyze_metrics(all_labels, all_predictions, class_labels):
     plt.grid(axis='y', linestyle='--')
     plt.show() 
 
-# --- Exécution de l'Évaluation ---
+# Exécution de l'évaluation
 
 if __name__ == '__main__':
 
@@ -150,12 +150,10 @@ if __name__ == '__main__':
             all_labels.extend(labels_np)
             all_predictions.extend(predictions_np)
 
-    # Génération et Affichage de la Matrice de Confusion ---
     # --- Analyse Détaillée (Matrice, F1, Rappel) ---
-    
     if len(all_labels) > 0:
         # Lancement de la fonction d'analyse détaillée
         analyze_metrics(all_labels, all_predictions, CLASS_LABELS)
     else:
-         print("\nAucune donnée sans padding trouvée pour l'analyse détaillée.")
+         print("\nAucune donnée trouvée")
     
