@@ -106,11 +106,11 @@ def analyze_metrics(all_labels, all_predictions, class_labels):
 
 if __name__ == '__main__':
 
-    TEST_FILE = '/Users/constancebeaufils/Documents/Master 2/Projet ML-CS/data_pre_processing/testing_dataset.json'  
-    MODEL_PATH = '/Users/constancebeaufils/Documents/Master 2/Projet ML-CS/data_pre_processing/best_model.pth'
+    TEST_FILE = 'data/testing_matches_subset_dssp.json'  
+    MODEL_PATH = 'Models/cnn_pssm/best_model.pth'
 
     # Chemin du fichier d'entraînement (utilisé comme référence de taille)
-    TRAIN_FILE_REF = '/Users/constancebeaufils/Documents/Master 2/Projet ML-CS/data_pre_processing/training_30_dataset.json'
+    TRAIN_FILE_REF = 'data/matches_subset_dssp.json'
     temp_train_dataset = ProteinDataset(TRAIN_FILE_REF)
     L_MAX = temp_train_dataset.max_len
 

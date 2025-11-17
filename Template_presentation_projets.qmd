@@ -307,6 +307,24 @@ However, CNNs remain inherently local. Although receptive fields can be widened,
 
 ### Results and discussion 
 
+**Overall Metrics**
+
+| Metric             | Value  |
+|-------------------|--------|
+| Q3 Accuracy       | **82.56%** |
+| Balanced Accuracy | **83%**  |
+| Macro F1          | **83%%**  |
+
+
+**Class-wise Performance**
+
+| Class | Precision | Recall | F1-score | Support |
+|-------|-----------|--------|----------|---------|
+| H     | 0.85       | 0.86   | 0.85    | 3788    |
+| E     | 0.83      | 0.77   | 0.80     | 2551    |
+| C     | 0.81      | 0.83   | 0.82     | 5317    |
+| **Macro Avg** | 0.83 | 0.82 | 0.82 | 11656 |
+| **Weighted Avg** |  0.83  |  0.83  |  0.83  | 11656 |
 
 
 
